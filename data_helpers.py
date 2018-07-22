@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import nltk
 import re
-
+import os
 
 train_df = pd.read_csv("data/train.csv")
 test_df = pd.read_csv("data/test.csv")
@@ -36,7 +36,7 @@ def clean_str(string):
 
 def convertFile(filepath, outputpath):
     data = []
-    lines = [line.strip() for line in open(filepath)]
+    lines = [line.strip() for line in open(filepath,'w')]
     for idx in range(0, len(lines), 4):
         id = lines[idx].split("\t")[0]
         relation = lines[idx + 1]
@@ -154,9 +154,11 @@ def batch_iter(data, batch_size, num_epochs, shuffle=True):
 if __name__ == "__main__":
     trainFile = 'SemEval2010_task8_all_data/SemEval2010_task8_training/TRAIN_FILE.TXT'
     testFile = 'SemEval2010_task8_all_data/SemEval2010_task8_testing_keys/TEST_FILE_FULL.TXT'
-
+    # trainFile = 'TRAIN_FILE.TXT'
+    # testFile = 'TEST_FILE_FULL.TXT'
+    path= os.getcwd()
     convertFile(trainFile, "data/train.csv")
-    convertFile(testFile, "data/test.csv")
+    convertFile(testFile,testFile, "data/test.csv")
 
     print("Train / Test file created")
     #
